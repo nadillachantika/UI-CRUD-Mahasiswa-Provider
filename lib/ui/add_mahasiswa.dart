@@ -1,6 +1,7 @@
 import 'package:crud_provider/model/res_get_mahasiswa.dart';
 import 'package:crud_provider/provider/mahasiswa_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AddMahasiswa extends StatefulWidget {
   String? title;
@@ -14,12 +15,6 @@ class AddMahasiswa extends StatefulWidget {
 }
 
 class _AddMahasiswaState extends State<AddMahasiswa> {
-  // TextEditingController nama = TextEditingController();
-  // TextEditingController nim = TextEditingController();
-  // TextEditingController jurusan = TextEditingController();
-  // TextEditingController alamat = TextEditingController();
-  // TextEditingController nohp = TextEditingController();
-
   @override
   void initState() {
     // TODO: implement initState
@@ -72,12 +67,15 @@ class _AddMahasiswaState extends State<AddMahasiswa> {
             TextFormField(
               initialValue: widget.data?.nim ?? '',
               onChanged: (value) => widget.data?.nim = value,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
+
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                     borderSide: BorderSide(color: Colors.black, width: 2),
                   ),
                   hintText: 'Nim',
+
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10))),
             ),
@@ -117,6 +115,7 @@ class _AddMahasiswaState extends State<AddMahasiswa> {
             TextFormField(
               initialValue: widget.data?.hp ?? '',
               onChanged: (value) => widget.data?.hp = value,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
@@ -153,35 +152,23 @@ class _AddMahasiswaState extends State<AddMahasiswa> {
                   if (widget.title == null) {
                     widget.mahasiswaProvider!.updateMahasiswa(context, widget.data!);
                   } else {
-                    widget.mahasiswaProvider!
-                        .addMahasiswa(context, widget.data!);
-                  }
+                      widget.mahasiswaProvider!
+                          .addMahasiswa(context, widget.data!);
+                    }
+                  // else{
+                  //     Fluttertoast.showToast(
+                  //         msg: "This is Toast messaget",
+                  //         toastLength: Toast.LENGTH_SHORT,
+                  //         gravity: ToastGravity.CENTER,
+                  //         // timeInSecForIos: 1
+                    //  );                    }
+                //  }
                 },
               ),
             ),
-//          setState(() {
-//            _isNeedHelp = true;
-//          });
           ],
         ),
       ),
-      // bottomNavigationBar:  Padding(
-      //   padding: const EdgeInsets.all(8.0),
-      //   child: RaisedButton(
-      //     color: Colors.lightBlue,
-      //     onPressed: () {
-      //       // if (widget.title == null) {
-      //       //   widget.blocpegawai.updatePegawai(context, widget.data);
-      //       // } else {
-      //       //   widget.blocpegawai.addData(context, widget.data);
-      //       // }
-      //     },
-      //     child: Text('Add'),
-      //     // child: widget.title == null
-      //     //     ? Text('Update')
-      //     //     : Text('${widget.title}'),
-      //   ),
-      // ),
     );
   }
 }

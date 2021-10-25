@@ -1,9 +1,9 @@
-
-
 import 'package:crud_provider/model/res_get_mahasiswa.dart';
 import 'package:crud_provider/repository/repo_mahasiswa.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 class MahasiswaProvider extends ChangeNotifier{
 
@@ -34,6 +34,7 @@ class MahasiswaProvider extends ChangeNotifier{
         Navigator.pop(context, true);
         // repoMahasiswa.
       } else {
+
         Navigator.pop(context);
       }
     });
@@ -44,8 +45,16 @@ class MahasiswaProvider extends ChangeNotifier{
       if(value != null){
         Navigator.pop(context, true);
       }else{
-        Navigator.pop(context);
-      }
+        // mahasiswa.nama.er
+        Fluttertoast.showToast(
+            msg: "Semua Data Harus di isi",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );      }
     });
   }
 
