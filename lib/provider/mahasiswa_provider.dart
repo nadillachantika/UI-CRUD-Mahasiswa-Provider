@@ -16,16 +16,23 @@ class MahasiswaProvider extends ChangeNotifier{
   }
 
   //get data mahasiswa
-  void getData(){
+  void getData()async{
     isLoading = true;
     notifyListeners();
     repoMahasiswa.getMahasiswa().then((value) {
       isLoading = false;
       if(value!= null){
         listMahasiswa = value;
+        print(listMahasiswa);
       }
       notifyListeners();
     });
+  }
+
+  void rebuildData() async{
+    listMahasiswa = [];
+    notifyListeners();
+    getData();
   }
 
 }
