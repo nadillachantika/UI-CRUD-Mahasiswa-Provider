@@ -9,4 +9,23 @@ class MahasiswaProvider extends ChangeNotifier{
 
   List<Datum> listMahasiswa = [];
   bool isLoading = true;
+
+
+  MahasiswaProvider(){
+    this.getData();
+  }
+
+  //get data mahasiswa
+  void getData(){
+    isLoading = true;
+    notifyListeners();
+    repoMahasiswa.getMahasiswa().then((value) {
+      isLoading = false;
+      if(value!= null){
+        listMahasiswa = value;
+      }
+      notifyListeners();
+    });
+  }
+
 }

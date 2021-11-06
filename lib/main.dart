@@ -36,100 +36,102 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'CRUD Provider',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.white,
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(10),
-        child: ListView(
-            // itemCount: mhsprovider.listMahasiswa.length,
-            // itemBuilder: (context, index) {
-            //   Datum data = mhsprovider.listMahasiswa[index];
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => MahasiswaProvider())
+      ],
+      child: Consumer<MahasiswaProvider>(builder: (context, mhsprovider, _) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'CRUD Provider',
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            ),
+            elevation: 0,
+            backgroundColor: Colors.white,
+          ),
+          body: Padding(
+              padding: EdgeInsets.all(10),
+              child: mhsprovider.isLoading? Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white54,
+                ),
+              ):ListView.builder(
+                  itemCount: mhsprovider.listMahasiswa.length,
+                  itemBuilder: (context, index) {
+                    Datum data = mhsprovider.listMahasiswa[index];
 
-            // return
-            children: [
-              Column(
-                children: [
-                  InkWell(
-                    // onTap: () async {
-                    //   var result = await Navigator.push(
-                    //       context,
-                    //       MaterialPageRoute(
-                    //           builder: (_) => AddMahasiswa(
-                    //                 // title: 'Update',
-                    //                 mahasiswaProvider: mhsprovider,
-                    //                 data: data,
-                    //               )));
-                    //   if (result != null) {
-                    //     mhsprovider.rebuildData();
-                    //   }
-                    // },
-                    child: Card(
-                      shadowColor: Colors.black,
-                      child: ListTile(
-                        title: Text(
-                          // '${data.nama}',
-                          'Nama',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(
-                          // '${data.nim}',
-                          'Nim',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        trailing: InkWell(
-                            onTap: () {
-                              print('clicked');
-                            },
-                            child: InkWell(
-                              onTap: () {
-                                //   mhsprovider.deleteMahasiswa(index, data);
-                              },
-                              child: Container(
-                                height: MediaQuery.of(context).size.height,
-                                width: MediaQuery.of(context).size.width * 0.1,
-                                child: Icon(
-                                  Icons.delete,
-                                  color: Color(0xFF801E48),
+                    return InkWell(
+                      // onTap: () async {
+                      //   var result = await Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //           builder: (_) => AddMahasiswa(
+                      //                 // title: 'Update',
+                      //                 mahasiswaProvider: mhsprovider,
+                      //                 data: data,
+                      //               )));
+                      //   if (result != null) {
+                      //     mhsprovider.rebuildData();
+                      //   }
+                      // },
+                      child: Card(
+                        shadowColor: Colors.black,
+                        child: ListTile(
+                          title: Text(
+                            '${data.nama}',
+                          //  'Nama',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            '${data.nim}',
+                            // 'Nim',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          trailing:  InkWell(
+                                onTap: () {
+                                  //   mhsprovider.deleteMahasiswa(index, data);
+                                },
+                                child: Container(
+                                  height: MediaQuery.of(context).size.height,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.1,
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Color(0xFF801E48),
+                                  ),
                                 ),
-                              ),
-                            )),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ]),
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 8.0),
-        child: FloatingActionButton(
-          backgroundColor: Color(0xFF801E48),
-          foregroundColor: Colors.white,
-          onPressed: () async {
-            // var result = await Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (_) => AddMahasiswa(
-            //               title: 'Add',
-            //               mahasiswaProvider: mhsprovider,
-            //               // data: ,
-            //             )));
-            // if (result != null) {
-            //   mhsprovider.rebuildData();
-            // }
+                              )),
+                        ),
 
-            // Respond to button press
-          },
-          child: Icon(Icons.add),
-        ),
-      ),
+                    );
+                  })),
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: FloatingActionButton(
+              backgroundColor: Color(0xFF801E48),
+              foregroundColor: Colors.white,
+              onPressed: () async {
+                // var result = await Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (_) => AddMahasiswa(
+                //               title: 'Add',
+                //               mahasiswaProvider: mhsprovider,
+                //               // data: ,
+                //             )));
+                // if (result != null) {
+                //   mhsprovider.rebuildData();
+                // }
+
+                // Respond to button press
+              },
+              child: Icon(Icons.add),
+            ),
+          ),
+        );
+      }),
     );
   }
 }

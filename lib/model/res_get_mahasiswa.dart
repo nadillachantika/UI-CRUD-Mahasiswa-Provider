@@ -5,12 +5,12 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-ResDataMahasiswa resDataMahasiswaFromJson(String str) => ResDataMahasiswa.fromJson(json.decode(str));
+ResGetDataMahasiswa resGetDataMahasiswaFromJson(String str) => ResGetDataMahasiswa.fromJson(json.decode(str));
 
-String resDataMahasiswaToJson(ResDataMahasiswa data) => json.encode(data.toJson());
+String resGetDataMahasiswaToJson(ResGetDataMahasiswa data) => json.encode(data.toJson());
 
-class ResDataMahasiswa {
-  ResDataMahasiswa({
+class ResGetDataMahasiswa {
+  ResGetDataMahasiswa({
     required this.isSuccess,
     required this.message,
     required this.data,
@@ -20,7 +20,7 @@ class ResDataMahasiswa {
   String message;
   List<Datum> data;
 
-  factory ResDataMahasiswa.fromJson(Map<String, dynamic> json) => ResDataMahasiswa(
+  factory ResGetDataMahasiswa.fromJson(Map<String, dynamic> json) => ResGetDataMahasiswa(
     isSuccess: json["is_success"],
     message: json["message"],
     data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
