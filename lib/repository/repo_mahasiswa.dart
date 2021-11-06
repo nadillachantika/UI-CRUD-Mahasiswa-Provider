@@ -18,6 +18,66 @@ class RepoMahasiswa {
       return e;
     }
   }
+  
+  Future addMahasiswa(Datum mahasiswa) async{
+    try{
+      final response = await http.post(Uri.parse(BaseUrl + 'addMahasiswa.php'), body: {
+        'nama': mahasiswa.nama,
+        'nim': mahasiswa.nim,
+        'jurusan' : mahasiswa.jurusan,
+        'alamat' : mahasiswa.alamat,
+        'hp': mahasiswa.hp
+      });
+
+      if(resGetDataMahasiswaFromJson(response.body).isSuccess == true){
+        return resGetDataMahasiswaFromJson(response.body);
+      }
+
+    }catch(e){
+      return e;
+    }
+    
+  }
+
+  Future updateData(Datum mahasiswa) async{
+    try{
+      final response = await http.post(Uri.parse(BaseUrl + 'editMahasiswa.php'), body: {
+        'nama': mahasiswa.nama,
+        'nim': mahasiswa.nim,
+        'jurusan' : mahasiswa.jurusan,
+        'alamat' : mahasiswa.alamat,
+        'hp': mahasiswa.hp,
+        'id':mahasiswa.id
+      });
+
+      if(resGetDataMahasiswaFromJson(response.body).isSuccess == true){
+        return resGetDataMahasiswaFromJson(response.body);
+      }
+
+    }catch(e){
+      return e;
+    }
+  }
+
+  Future deleteData(Datum mahasiswa) async{
+    try{
+      final response = await http.post(Uri.parse(BaseUrl+'deleteMahasiswa.php'),
+      body: {
+        'id' :mahasiswa.id
+      });
+
+      if( resGetDataMahasiswaFromJson(response.body).isSuccess == true){
+        return resGetDataMahasiswaFromJson(response.body);
+      }
+    }catch(e){
+      return e;
+    }
+  }
+
+
+
+
+  
 }
 
 final repoMahasiswa = RepoMahasiswa();

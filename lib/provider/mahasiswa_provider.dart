@@ -5,23 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 
-class MahasiswaProvider extends ChangeNotifier{
+class MahasiswaProvider extends ChangeNotifier {
 
   List<Datum> listMahasiswa = [];
   bool isLoading = true;
 
 
-  MahasiswaProvider(){
+  MahasiswaProvider() {
     this.getData();
   }
 
   //get data mahasiswa
-  void getData()async{
+  void getData() async {
     isLoading = true;
     notifyListeners();
     repoMahasiswa.getMahasiswa().then((value) {
       isLoading = false;
-      if(value!= null){
+      if (value != null) {
         listMahasiswa = value;
         print(listMahasiswa);
       }
@@ -29,10 +29,54 @@ class MahasiswaProvider extends ChangeNotifier{
     });
   }
 
-  void rebuildData() async{
+  void addData(context, Datum mahasiswa) {
+    repoMahasiswa.addMahasiswa(mahasiswa).then((value) {
+      if (value != null) {
+        Navigator.pop(context, true);
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Data tidak boleh kosong',
+            toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          backgroundColor: Colors.black12,
+          textColor:  Colors.white,
+          fontSize: 16
+        );
+      }
+    });
+  }
+
+  void updateData(context, Datum mahasiswa) {
+    repoMahasiswa.updateData(mahasiswa).then((value) {
+      if (value != null) {
+        Navigator.pop(context, true);
+      } else {
+        Fluttertoast.showToast(
+            msg: 'Data tidak boleh kosong',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            backgroundColor: Colors.black12,
+            textColor:  Colors.white,
+            fontSize: 16
+        );
+      }
+    });
+  }
+
+  void deleteData(int index, Datum mahasiswa){
+    repoMahasiswa.deleteData(mahasiswa).then((value) {
+      if(value != null){
+        listMahasiswa.removeAt(index);
+      }
+      notifyListeners();
+    });
+  }
+
+  void rebuildData() async {
     listMahasiswa = [];
     notifyListeners();
     getData();
   }
+
 
 }

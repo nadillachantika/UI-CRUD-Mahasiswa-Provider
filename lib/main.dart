@@ -63,19 +63,19 @@ class _HomePageState extends State<HomePage> {
                     Datum data = mhsprovider.listMahasiswa[index];
 
                     return InkWell(
-                      // onTap: () async {
-                      //   var result = await Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //           builder: (_) => AddMahasiswa(
-                      //                 // title: 'Update',
-                      //                 mahasiswaProvider: mhsprovider,
-                      //                 data: data,
-                      //               )));
-                      //   if (result != null) {
-                      //     mhsprovider.rebuildData();
-                      //   }
-                      // },
+                      onTap: () async {
+                        var result = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => AddMahasiswa(
+                                      // title: 'Update',
+                                      mahasiswaProvider: mhsprovider,
+                                      data: data,
+                                    )));
+                        if (result != null) {
+                          mhsprovider.rebuildData();
+                        }
+                      },
                       child: Card(
                         shadowColor: Colors.black,
                         child: ListTile(
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           trailing:  InkWell(
                                 onTap: () {
-                                  //   mhsprovider.deleteMahasiswa(index, data);
+                                    mhsprovider.deleteData(index, data);
                                 },
                                 child: Container(
                                   height: MediaQuery.of(context).size.height,
@@ -113,17 +113,17 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: Color(0xFF801E48),
               foregroundColor: Colors.white,
               onPressed: () async {
-                // var result = await Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (_) => AddMahasiswa(
-                //               title: 'Add',
-                //               mahasiswaProvider: mhsprovider,
-                //               // data: ,
-                //             )));
-                // if (result != null) {
-                //   mhsprovider.rebuildData();
-                // }
+                var result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => AddMahasiswa(
+                              title: 'Add',
+                              mahasiswaProvider: mhsprovider,
+                              // data: ,
+                            )));
+                if (result != null) {
+                  mhsprovider.rebuildData();
+                }
 
                 // Respond to button press
               },
